@@ -1,0 +1,10 @@
+#db.sqlite3
+guide.md
+.env
+
+*.pyc
+__pycache__/
+#media/
+#static/
+
+.envblango/
