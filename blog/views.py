@@ -28,6 +28,13 @@ def post_detail(request, slug):
             comment_form = CommentForm()
     else:
         comment_form = None
-    return render(request, "blog/post-detail.html", {"post": post})
+
+    context = {
+        "post": post,
+        "comment_form": comment_form  # Include the form in the context
+    }
+
+    # return render(request, "blog/post-detail.html", {"post": post})
+    return render(request, "blog/post-detail.html", context)
 
 

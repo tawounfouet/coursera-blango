@@ -1,5 +1,6 @@
 {% load blog_extras %}
 
-{% comment %}
-<small>By {% author_details_tag %} on {{ post.published_at|date:"M, d Y" }}</small>
-{% endcomment %}
+
+{% comment %} <small>By {% author_details_tag %} on {{ post.published_at|date:"M, d Y" }}</small> {% endcomment %}
+
+<small>By {{ post.author|author_details:request.user }} on {{ post.published_at|date:"M, d Y" }}</small> 
