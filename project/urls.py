@@ -13,10 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import debug_toolbar
+
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from django.conf import settings
+from django.conf.urls.static import static
 print(f"Time zone: {settings.TIME_ZONE}", "\n")
 
 # other imports
@@ -29,3 +32,9 @@ urlpatterns = [
     path("post/<slug>/", blog.views.post_detail, name="blog-post-detail")
 
 ]
+
+# Map the path __debug__/ to the DJDT's URL's, but only in debug mode.
+if settings.DEBUG:
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

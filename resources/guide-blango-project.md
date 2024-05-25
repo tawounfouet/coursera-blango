@@ -55,3 +55,20 @@ c2.save()
 c2.content_object
 # Out[10]: <User: username
 ```
+
+
+```sh
+
+# pip install crispy-bootstrap5
+pip install django-crispy-forms
+
+# 
+pip3 install django-configurations dj-database-url
+
+# Security password
+pip3 install "django[argon2]"
+
+# Database optimisation
+pip3 install django-debug-toolbar
+
+pip freeze > requirements.txt
