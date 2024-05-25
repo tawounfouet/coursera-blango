@@ -27,7 +27,21 @@
  <hr>
 
 {% include "blog/post-comments.html" %}
+
+
+<!-- Most Recent Blog Posts -->
+{% row %}
+    {% col %}
+        {% recent_posts post %}
+    {% endcol %}
+{% endrow %}
+
 {% endblock %}
+
+
+
+
+
 
 
 
