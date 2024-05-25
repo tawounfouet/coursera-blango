@@ -26,6 +26,58 @@ class Dev(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
     BASE_DIR = Path(__file__).resolve().parent.parent
 
+    # Admin Settings 
+    ADMINS = [("Thomas AWOUNFOUET", "thomas.awounfouet@gmail.com")]
+
+    # Logging Configuration Settings
+    # This config sets up one handler with the ID console. 
+    # The handler eill log to the console.
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "filters": {
+            "require_debug_false": {
+                # Error Emails are only sent in production enviroments
+                # The class below only passes messages through when DEBUG is False.
+                "()": "django.utils.log.RequireDebugFalse",
+            },
+        },
+        "formatters": {
+            "verbose": {
+                "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+                # Outputs the log level, time of the message (asctime), name of 
+                # the module that generated the message, the process ID, 
+                # thread ID, and lastly, the message.
+                "style": "{",
+            },
+        },
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler", 
+                "stream": "ext://sys.stdout",
+                "formatter": "verbose",
+            },
+            "mail_admins": {
+                "level": "ERROR", 
+                "class": "django.utils.log.AdminEmailHandler",
+                "filters": ["require_debug_false"],
+            },
+        },
+        "loggers": {
+            # Django.request so that only unhandled exceptions get sent.
+            "django.request": {
+                "handlers": ["mail_admins"],
+                "level": "ERROR",
+                # Add propagate: True; so the stack traces are logged to the console during development.
+                "propagate": True,
+            },
+        },
+        "root": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+    }
+
 
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -105,7 +157,7 @@ class Dev(Configuration):
     #         'NAME': BASE_DIR / 'db.sqlite3',
     #     }
     # }
-    
+
     # DATABASES = {
     #     "default":
     #         dj_database_url.config(default=f"sqlite:///{BASE_DIR}/db
