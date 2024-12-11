@@ -1,10 +1,10 @@
 
 ```sh
 #Create virtual environment
-python3.10 -m venv .venv
+python3.10 -m venv _venv
 
 #  Activate virtual environment
-source .venv/bin/activate
+source _venv/bin/activate
 
 pip freeze > requirements.txt
 
@@ -72,3 +72,21 @@ pip3 install "django[argon2]"
 pip3 install django-debug-toolbar
 
 pip freeze > requirements.txt
+
+
+
+python3 manage.py dumpdata -o data.json blog.Comment blog.Tag blog.Post auth.User
+```
+Then open the data.json file in a text editor, and replace all occurrences of
+`auth.User` with `blango_auth.User`. 
+
+
+```sh
+python3 manage.py makemigrations
+
+rm db.sqlite3
+
+python3 manage.py migrate
+
+
+python3 manage.py loaddata data.json
